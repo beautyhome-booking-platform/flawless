@@ -1,21 +1,26 @@
+import { NavLink } from "react-router-dom";
+
 interface SidebarNavItemProps {
   icon: string
   label: string
-  active?: boolean
+  // active?: boolean
   badge?: number
   regular?: boolean
+  path: string
 }
 
-export default function SidebarNavItem({ icon, label, active, badge, regular }: SidebarNavItemProps) {
+export default function SidebarNavItem({ icon, label, path, badge, regular}: SidebarNavItemProps) {
   const iconClass = `${regular ? 'fa-regular' : 'fa-solid'} ${icon}`
   return (
-    <a
-      href="#"
-      className={`flex items-center gap-3 px-4 py-2 rounded-lg relative ${
-        active
-          ? 'bg-green-50 text-green-700 font-semibold'
-          : 'text-gray-600 hover:bg-gray-100'
-      }`}
+    <NavLink
+      to={path}
+      className={({ isActive }) =>
+        `flex items-center gap-3 px-4 py-2 rounded-lg relative ${
+          isActive
+            ? "bg-green-50 text-green-700 font-semibold"
+            : "text-gray-600 hover:bg-gray-100"
+        }`
+      }
     >
       <i className={iconClass}></i> {label}
       {badge && (
@@ -23,6 +28,6 @@ export default function SidebarNavItem({ icon, label, active, badge, regular }: 
           {badge}
         </span>
       )}
-    </a>
+    </NavLink>
   )
 } 

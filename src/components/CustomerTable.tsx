@@ -188,7 +188,7 @@ const customers = [
 ]
 
 export default function CustomerTable() {
-  const search = useSelector((state: RootState) => state.search.search);
+  const search = useSelector((state: RootState) => state.search.customerSearch);
   const date = useSelector((state: RootState) => state.search.date);
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
