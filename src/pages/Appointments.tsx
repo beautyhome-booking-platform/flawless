@@ -4,7 +4,7 @@ import CustomerTable from "../components/CustomerTable";
 export default function Appointments() {
 	return (
 		<>
-			<SearchFilterBar />
+			<SearchFilterBar context="appointments"/>
 			<CustomerTable />
 		</>
 	);

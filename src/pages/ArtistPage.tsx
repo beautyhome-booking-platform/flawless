@@ -4,7 +4,7 @@ import ArtistList from "../components/ArtistList";
 export default function Appointments() {
 	return (
 		<>
-			<SearchFilterBar />
+			<SearchFilterBar context="artists"/>
 			<ArtistList />
 		</>
 	);

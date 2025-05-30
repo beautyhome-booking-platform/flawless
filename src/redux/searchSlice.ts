@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 interface SearchState {
   customerSearch: string;
   artistSearch: string;
+  artistSearchReview: string;
   date: string;
 }
 
@@ -11,6 +12,7 @@ interface SearchState {
 const initialState: SearchState = {
   customerSearch: '',
   artistSearch: '',
+  artistSearchReview: '',
   date: '',
 };
 
@@ -24,11 +26,14 @@ const searchSlice = createSlice({
     setArtistSearch(state, action: { payload: string }) {
       state.artistSearch = action.payload;
     },
+    setArtistSearchReview(state, action: { payload: string }) {
+      state.artistSearchReview = action.payload;
+    },
     setDate(state, action: { payload: string }) {
       state.date = action.payload;
     },
   },
 });
 
-export const { setCustomerSearch, setArtistSearch, setDate } = searchSlice.actions;
+export const { setCustomerSearch, setArtistSearch, setArtistSearchReview, setDate } = searchSlice.actions;
 export default searchSlice.reducer; 
