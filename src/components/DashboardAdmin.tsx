@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTotalRevenue } from "../redux/slices/revenueSlice";
 import { fetchTotalBooking } from "../redux/slices/bookingSlice";
-import { fetchBestService } from "@/redux/slices/bestService";
+import { fetchBestService } from "@/redux/slices/bestServiceSlice";
+import { fetchBestArtist } from "@/redux/slices/bestArtistSlice";
+import { fetchTotalCustomer } from "@/redux/slices/customerSlice";
+import { fetchTotalArtist } from "@/redux/slices/artistSlice";
 import type { RootState, AppDispatch } from "../redux/store";
 import {
 	FaStar,
@@ -11,6 +14,7 @@ import {
 	FaSortUp,
 	FaSortDown,
 	FaSort,
+	FaUsers,
 } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -24,6 +28,9 @@ import {
 	Line,
 	BarChart,
 	Bar,
+	PieChart,
+	Pie,
+	Cell,
 	XAxis,
 	YAxis,
 	Tooltip,
@@ -33,7 +40,7 @@ import {
 	ReferenceDot,
 	Label,
 } from "recharts";
-import { fetchBestArtist } from "@/redux/slices/bestArtist";
+
 interface bestArtistInMonth {
 	idAr: string;
 	nameAr: string;
@@ -49,8 +56,21 @@ interface bestServicetInMonth {
 	nameSer: string;
 	avgRating: number;
 }
+
+interface customerInMonth {
+	totalCustomer: number;
+	newCustomer: number;
+	returnCustomer: number;
+	cancelCustomer: number;
+}
+
+interface artistInMonth {
+	totalArtist: number;
+	newArtist: number;
+	banArtist: number;
+}
 export default function DashboardAdmin() {
-	// 1. API revenue
+	// 1. API totalRevenue
 	const dispatch = useDispatch<AppDispatch>();
 	const { data: dataRevenue } = useSelector(
 		(state: RootState) => state.revenue,
@@ -89,7 +109,7 @@ export default function DashboardAdmin() {
 	const refundYear = selectedYearDataRevenue?.totalRefundPerYear || 0;
 	const profitYear = selectedYearDataRevenue?.totalNetProfitPerYear || 0;
 
-	// 2. API booking
+	// 2. API totalBooking
 	const { data: dataBooking } = useSelector(
 		(state: RootState) => state.booking,
 	);
@@ -178,12 +198,72 @@ export default function DashboardAdmin() {
 		)?.months[monthBestService] ?? []),
 	].sort((a, b) => b.avgRating - a.avgRating);
 
-	// Kiểm tra đã fetch data từ api chưa
+	// 5. API totalCustomer
+	const { data: dataCustomer } = useSelector(
+		(state: RootState) => state.customer,
+	);
+
+	useEffect(() => {
+		dispatch(fetchTotalCustomer());
+	}, [dispatch]);
+
+	const [yearCustomer, setYearCustomer] = useState("2025");
+	const currentMonthCustomer = monthNames[new Date().getMonth()];
+	const [monthCustomer, setMonthCustomer] = useState(currentMonthCustomer);
+	const customerData: customerInMonth =
+		dataCustomer?.totalCustomer?.perYear.find(
+			(y: { year: number }) => y.year === Number(yearCustomer),
+		)?.months[monthCustomer] ?? {
+			totalCustomer: 0,
+			newCustomer: 0,
+			returnCustomer: 0,
+			cancelCustomer: 0,
+		};
+	// Lấy dữ liệu từ customerData
+	const totalCus = customerData.totalCustomer;
+	const newCus = customerData.newCustomer;
+	const returnCus = customerData.returnCustomer;
+	const cancelCus = customerData.cancelCustomer;
+	// Dữ liệu cho PieChart
+	const chartDataCustomer = [
+		{ name: "New", value: newCus },
+		{ name: "Returning", value: returnCus },
+		{ name: "Canceled", value: cancelCus },
+	];
+
+	// 6. API totalArtist
+	const { data: dataArtist } = useSelector((state: RootState) => state.artist);
+
+	useEffect(() => {
+		dispatch(fetchTotalArtist());
+	}, [dispatch]);
+
+	const [yearArtist, setYearArtist] = useState("2025");
+	const currentMonthArtist = monthNames[new Date().getMonth()];
+	const [monthArtist, setMonthArtist] = useState(currentMonthArtist);
+	const artistData: artistInMonth = dataArtist?.totalArtist?.perYear.find(
+		(y: { year: number }) => y.year === Number(yearArtist),
+	)?.months[monthArtist] ?? {
+		totalArtist: 0,
+		newArtist: 0,
+		banArtist: 0,
+	};
+	// Lấy dữ liệu từ artistData
+	const totalAr = artistData.totalArtist;
+	const newAr = artistData.newArtist;
+	const banAr = artistData.banArtist;
+	// Dữ liệu cho PieChart
+	const chartDataArtist = [
+		{ name: "New", value: newAr },
+		{ name: "Ban", value: banAr },
+	];
+
+	// *** Kiểm tra đã fetch data từ api chưa
 	// useEffect(() => {
-	// 	if (dataBestService) {
-	// 		console.log("Dữ liệu dataBestService đã fetch:", dataBestService);
+	// 	if (dataArtist) {
+	// 		console.log("Dữ liệu dataArtist đã fetch:", dataArtist);
 	// 	}
-	// }, [dataBestService]);
+	// }, [dataArtist]);
 	return (
 		<div className="flex flex-col gap-4 bg-gray-50 min-h-screen">
 			<div className="flex flex-row gap-4">
@@ -206,13 +286,18 @@ export default function DashboardAdmin() {
 						<Card
 							className="p-4 rounded-2xl shadow-lg bg-gradient-to-r from-green-100 to-emerald-100 text-gray-800 flex items-center gap-4 hover:shadow-2xl hover:scale-105 hover:cursor-pointer hover:text-emerald-950 hover:shadow-emerald-300 hover:bg-gradient-to-r hover:from-green-200 hover:to-emerald-200 hover:border-2 hover:border-emerald-300 hover:border-solid transition-shadow duration-300"
 							title="Total Customers"
-							value="315"
+							value={
+								dataCustomer?.totalCustomer?.totalCustomerAllYear ??
+								"Loading..."
+							} //(nullish coalescing)
 							icon={faUser}
 						/>
 						<Card
 							className="p-4 rounded-2xl shadow-lg bg-gradient-to-r from-green-100 to-emerald-100 text-gray-800 flex items-center gap-4 hover:shadow-2xl hover:scale-105 hover:cursor-pointer hover:text-emerald-950 hover:shadow-emerald-300 hover:bg-gradient-to-r hover:from-green-200 hover:to-emerald-200 hover:border-2 hover:border-emerald-300 hover:border-solid transition-shadow duration-300"
 							title="Total Artists"
-							value="65"
+							value={
+								dataArtist?.totalArtist?.totalArtistAllYear ?? "Loading..."
+							} //(nullish coalescing)
 							icon={faUserTie}
 						/>{" "}
 						<Card
@@ -612,20 +697,277 @@ export default function DashboardAdmin() {
 
 				{/* B. Right Side - 1/3 */}
 				<div className="w-1/3 space-y-4">
-					<div className="bg-white p-4 rounded-2xl shadow">
-						<h2 className="text-lg font-semibold mb-2">Customer Overview</h2>
-						<div className="h-48 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500">
-							Customer Overview Chart
+					{/* Customer Overview */}
+					<div className="bg-white p-4 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-110">
+						{/* Dropdown chọn tháng/năm */}
+						<div className="flex justify-between">
+							<div className="pt-2">
+								<h2 className="text-lg font-semibold mb-4">
+									Customer Overview
+								</h2>
+							</div>
+
+							<div className="flex gap-2">
+								<select
+									value={monthCustomer}
+									onChange={(e) => setMonthCustomer(e.target.value)}
+									className="text-sm px-2 py-1 rounded-xl bg-gradient-to-r from-pink-100 to-red-100"
+								>
+									{monthNames.map((m) => (
+										<option key={m} value={m}>
+											{m.toUpperCase()}
+										</option>
+									))}
+								</select>
+
+								<select
+									value={yearCustomer}
+									onChange={(e) => setYearCustomer(e.target.value)}
+									className="text-sm px-2 py-1 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50"
+								>
+									{Array.isArray(dataCustomer?.totalCustomer?.perYear) &&
+										dataCustomer.totalCustomer.perYear.map(
+											(item: { year: number }) => (
+												<option key={item.year} value={item.year}>
+													{item.year}
+												</option>
+											),
+										)}
+								</select>
+							</div>
+						</div>
+						{/* Biểu đồ vòng */}
+						<div className="flex flex-col items-center">
+							<PieChart width={200} height={200}>
+								<defs>
+									<linearGradient id="gradient-new" x1="0" y1="0" x2="1" y2="0">
+										<stop offset="0%" stopColor="#fbcfe8" />{" "}
+										{/* from-pink-100 */}
+										<stop offset="100%" stopColor="#fca5a5" />{" "}
+										{/* to-red-100 */}
+									</linearGradient>
+									<linearGradient
+										id="gradient-return"
+										x1="0"
+										y1="0"
+										x2="1"
+										y2="0"
+									>
+										<stop offset="0%" stopColor="#d1fae5" />{" "}
+										{/* from-green-100 */}
+										<stop offset="100%" stopColor="#6ee7b7" />{" "}
+										{/* to-emerald-100 */}
+									</linearGradient>
+									<linearGradient
+										id="gradient-cancel"
+										x1="0"
+										y1="0"
+										x2="1"
+										y2="0"
+									>
+										<stop offset="0%" stopColor="#f9fafb" />{" "}
+										{/* from-gray-50 */}
+										<stop offset="100%" stopColor="#e5e7eb" />{" "}
+										{/* to-gray-200 */}
+									</linearGradient>
+								</defs>
+								<Pie
+									data={chartDataCustomer}
+									dataKey="value"
+									innerRadius={60}
+									outerRadius={80}
+									paddingAngle={5}
+								>
+									{chartDataCustomer.map((_, index) => (
+										<Cell
+											key={`cell-${index}`}
+											fill={COLORS[index % COLORS.length]}
+										/>
+									))}
+								</Pie>
+							</PieChart>
+
+							{/* Tổng khách hàng */}
+							<h3 className="text-sm text-gray-500 -mt-2">Total Customer</h3>
+							<div className="text-2xl font-semibold flex items-center gap-2">
+								<FaUsers className="text-gray-700" size={20} />{" "}
+								{totalCus.toLocaleString()}
+							</div>
+
+							{/* Chi tiết các loại */}
+							<div className="mt-4 border-t w-full pt-3 space-y-2 text-sm">
+								<div className="flex items-center justify-between px-1">
+									<div className="flex items-center gap-2">
+										<span className="bg-rose-100 text-xs font-semibold px-2 py-1 rounded">
+											{getPercent(newCus, totalCus)}%
+										</span>
+										<span className="text-gray-700">New Customer</span>
+									</div>
+									<div className="text-gray-800 flex items-center gap-2">
+										<span className="text-base font-medium">
+											{newCus.toLocaleString()}
+										</span>
+										<FaUsers className="text-gray-700 w-5 h-5" />
+									</div>
+								</div>
+
+								<div className="flex items-center justify-between px-1">
+									<div className="flex items-center gap-2">
+										<span className="bg-emerald-100 text-xs font-semibold px-2 py-1 rounded">
+											{getPercent(returnCus, totalCus)}%
+										</span>
+										<span className="text-gray-700">Returning Customer</span>
+									</div>
+									<div className="text-gray-800 flex items-center gap-2">
+										<span className="text-base font-medium">
+											{returnCus.toLocaleString()}
+										</span>
+										<FaUsers className="text-gray-700 w-5 h-5" />
+									</div>
+								</div>
+
+								<div className="flex items-center justify-between px-1">
+									<div className="flex items-center gap-2">
+										<span className="bg-gray-200 text-xs font-semibold px-2 py-1 rounded">
+											{getPercent(cancelCus, totalCus)}%
+										</span>
+										<span className="text-gray-700">Canceled Customer</span>
+									</div>
+									<div className="text-gray-800 flex items-center gap-2">
+										<span className="text-base font-medium">
+											{cancelCus.toLocaleString()}
+										</span>
+										<FaUsers className="text-gray-700 w-5 h-5" />
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
-					<div className="bg-white p-4 rounded-2xl shadow">
+					{/* Artist Overview */}
+					{/* <div className="bg-white p-4 rounded-2xl shadow">
 						<h2 className="text-lg font-semibold mb-2">Artist Overview</h2>
 						<div className="h-48 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500">
 							Artist Overview Chart
 						</div>
+					</div> */}
+
+					<div className="bg-white p-4 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-110">
+						{/* Dropdown chọn tháng/năm */}
+						<div className="flex justify-between">
+							<div className="pt-2">
+								<h2 className="text-lg font-semibold mb-4">Artist Overview</h2>
+							</div>
+
+							<div className="flex gap-2">
+								<select
+									value={monthArtist}
+									onChange={(e) => setMonthArtist(e.target.value)}
+									className="text-sm px-2 py-1 rounded-xl bg-gradient-to-r from-pink-100 to-red-100"
+								>
+									{monthNames.map((m) => (
+										<option key={m} value={m}>
+											{m.toUpperCase()}
+										</option>
+									))}
+								</select>
+
+								<select
+									value={yearArtist}
+									onChange={(e) => setYearArtist(e.target.value)}
+									className="text-sm px-2 py-1 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50"
+								>
+									{Array.isArray(dataArtist?.totalArtist?.perYear) &&
+										dataArtist.totalArtist.perYear.map(
+											(item: { year: number }) => (
+												<option key={item.year} value={item.year}>
+													{item.year}
+												</option>
+											),
+										)}
+								</select>
+							</div>
+						</div>
+						{/* Biểu đồ vòng */}
+						<div className="flex flex-col items-center">
+							<PieChart width={200} height={200}>
+								<defs>
+									<linearGradient id="gradient-new" x1="0" y1="0" x2="1" y2="0">
+										<stop offset="0%" stopColor="#fbcfe8" />{" "}
+										{/* from-pink-100 */}
+										<stop offset="100%" stopColor="#fca5a5" />{" "}
+										{/* to-red-100 */}
+									</linearGradient>
+									<linearGradient
+										id="gradient-return"
+										x1="0"
+										y1="0"
+										x2="1"
+										y2="0"
+									>
+										<stop offset="0%" stopColor="#d1fae5" />{" "}
+										{/* from-green-100 */}
+										<stop offset="100%" stopColor="#6ee7b7" />{" "}
+										{/* to-emerald-100 */}
+									</linearGradient>
+								</defs>
+								<Pie
+									data={chartDataArtist}
+									dataKey="value"
+									innerRadius={60}
+									outerRadius={80}
+									paddingAngle={5}
+								>
+									{chartDataArtist.map((_, index) => (
+										<Cell
+											key={`cell-${index}`}
+											fill={COLORS[index % COLORS.length]}
+										/>
+									))}
+								</Pie>
+							</PieChart>
+
+							{/* Tổng khách hàng */}
+							<h3 className="text-sm text-gray-500 -mt-2">Total Artist</h3>
+							<div className="text-2xl font-semibold flex items-center gap-2">
+								<FaUsers className="text-gray-700" size={20} />{" "}
+								{totalAr.toLocaleString()}
+							</div>
+
+							{/* Chi tiết các loại */}
+							<div className="mt-4 border-t w-full pt-3 space-y-2 text-sm">
+								<div className="flex items-center justify-between px-1">
+									<div className="flex items-center gap-2">
+										<span className="bg-rose-100 text-xs font-semibold px-2 py-1 rounded">
+											{getPercent(newAr, totalAr)}%
+										</span>
+										<span className="text-gray-700">New Artist</span>
+									</div>
+									<div className="text-gray-800 flex items-center gap-2">
+										<span className="text-base font-medium">
+											{newAr.toLocaleString()}
+										</span>
+										<FaUsers className="text-gray-700 w-5 h-5" />
+									</div>
+								</div>
+
+								<div className="flex items-center justify-between px-1">
+									<div className="flex items-center gap-2">
+										<span className="bg-emerald-100 text-xs font-semibold px-2 py-1 rounded">
+											{getPercent(banAr, totalAr)}%
+										</span>
+										<span className="text-gray-700">Banned Artist</span>
+									</div>
+									<div className="text-gray-800 flex items-center gap-2">
+										<span className="text-base font-medium">
+											{banAr.toLocaleString()}
+										</span>
+										<FaUsers className="text-gray-700 w-5 h-5" />
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					{/* Most Popular Services */}
+					{/* Best Services */}
 					<div className="bg-white p-4 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
 						<div className="flex justify-between">
 							<div className="pt-2">
@@ -661,7 +1003,10 @@ export default function DashboardAdmin() {
 						</div>
 						<ul className="space-y-4">
 							{bestServiceData.map((item: bestServicetInMonth, index) => (
-								<li key={item.idSer} className="flex items-center gap-4 hover:scale-110 hover:cursor-pointer hover:bg-green-100 hover:rounded-full">
+								<li
+									key={item.idSer}
+									className="flex items-center gap-4 hover:scale-110 hover:cursor-pointer hover:bg-green-100 hover:rounded-full"
+								>
 									<div className="bg-rose-100 text-sm font-semibold px-3 py-1 rounded-xl text-gray-700">
 										#{index + 1}
 									</div>
@@ -803,3 +1148,13 @@ const formatStatus = (status: number) => {
 			return <span className="text-gray-400">Unknown</span>;
 	}
 };
+// Màu cho từng loại
+const COLORS = [
+	"url(#gradient-new)",
+	"url(#gradient-return)",
+	"url(#gradient-cancel)",
+];
+
+// Tính phần trăm
+const getPercent = (value: number, total: number) =>
+	total ? Math.round((value / total) * 100) : 0;

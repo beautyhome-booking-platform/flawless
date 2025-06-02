@@ -2,8 +2,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from './slices/searchSlice';
 import revenueReducer from "./slices/revenueSlice";
 import bookingReducer from "./slices/bookingSlice";
-import bestArtistReducer from "./slices/bestArtist";
-import bestServiceReducer from "./slices/bestService";
+import bestArtistReducer from "./slices/bestArtistSlice";
+import bestServiceReducer from "./slices/bestServiceSlice";
+import customerReducer from "./slices/customerSlice";
+import artistReducer from "./slices/artistSlice";
 // import other reducers...
 
 export const store = configureStore({
@@ -13,6 +15,8 @@ export const store = configureStore({
     booking: bookingReducer,
     bestArtist: bestArtistReducer,
     bestService: bestServiceReducer,
+    customer: customerReducer,
+    artist: artistReducer,
     // other reducers...
   },
 });
