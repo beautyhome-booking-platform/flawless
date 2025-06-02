@@ -2,14 +2,15 @@ import SidebarNavItem from "./SidebarNavItem";
 import SidebarUpdateCard from "./SidebarUpdateCard";
 const navItems = [
 	// { icon: "fa-users", label: "Appointments", active: true },
+	{ icon: "fa-table-cells", label: "Dashboard", path: "/dashboard-admin"},
 	{ icon: "fa-calendar", label: "Appointments", path: "/appointments"},
 	{ icon: "fa-user-md", label: "Artists", path: "/artists"},
 	{ icon: "fa-users", label: "Customers", path: "/customers"},
-	{ icon: "fa-syringe", label: "Surgery Schedule", path: "/surgery-schedule"},
+	// { icon: "fa-syringe", label: "Surgery Schedule", path: "/surgery-schedule"},
 	{ icon: "fa-flask", label: "Services", path: "/services"},
 	{ icon: "fa-star", label: "Reviews", path: "/reviews"},
 	{ icon: "fa-credit-card", label: "Payments", path: "/payments"},
-	{ icon: "fa-message", label: "Messages", path: "/messages"},
+	// { icon: "fa-message", label: "Messages", path: "/messages"},
 ];
 
 export default function Sidebar() {

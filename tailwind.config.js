@@ -22,6 +22,15 @@ export default {
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(50%)' }, // vì nội dung được nhân đôi
+        },
+      },
+      animation: {
+        marquee: 'marquee 10s linear infinite',
+      },
     },
   },
   plugins: [],

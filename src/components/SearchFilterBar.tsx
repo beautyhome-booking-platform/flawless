@@ -5,7 +5,7 @@ import {
 	setArtistSearch,
 	setArtistSearchReview,
 	setDate,
-} from "../redux/searchSlice";
+} from "../redux/slices/searchSlice";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // import { useLocation } from "react-router-dom";
@@ -62,7 +62,7 @@ export default function SearchFilterBar({ context }: SearchFilterBarProps) {
 			<input
 				type="text"
 				placeholder="Search customer, artist, etc"
-				className="px-4 py-2 border rounded-lg w-full sm:w-80 bg-gray-50"
+				className="px-4 py-2 border rounded-2xl w-full sm:w-80 bg-gray-50"
 				value={inputValue}
 				onChange={onChange}
 			/>
