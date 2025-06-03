@@ -6,6 +6,9 @@ import bestArtistReducer from "./slices/bestArtistSlice";
 import bestServiceReducer from "./slices/bestServiceSlice";
 import customerReducer from "./slices/customerSlice";
 import artistReducer from "./slices/artistSlice";
+import reviewReducer from "./slices/reviewSlice";
+import appointmentReducer from "./slices/appointmentSlice";
+import artistListReducer from "./slices/artistListSlice";
 // import other reducers...
 
 export const store = configureStore({
@@ -17,6 +20,9 @@ export const store = configureStore({
     bestService: bestServiceReducer,
     customer: customerReducer,
     artist: artistReducer,
+    review: reviewReducer,
+    appointment: appointmentReducer,
+    artistList: artistListReducer,
     // other reducers...
   },
 });

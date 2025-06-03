@@ -1,19 +1,19 @@
 
 interface ReviewItemProps {
-  name: string;
-  avatar: string;
-  date: string;
+  nameCus: string;
+  avatarCus: string;
+  datetime: string;
   message: string;
-  artist: string;
+  nameAr: string;
   rating: number;
 }
 
 export default function ReviewItem({
-  name,
-  avatar,
-  date,
+  nameCus,
+  avatarCus,
+  datetime,
   message,
-  artist,
+  nameAr,
   rating,
 }: ReviewItemProps) {
   return (
@@ -21,11 +21,11 @@ export default function ReviewItem({
       {/* 1. Avatar + Name + Date */}
       <div className="flex items-start gap-3 w-full sm:w-1/4">
         <div className="w-12 h-12 rounded-full bg-pink-100 overflow-hidden">
-          <img src={avatar} alt={name} className="w-full h-full object-cover" />
+          <img src={avatarCus} alt={nameCus} className="w-full h-full object-cover" />
         </div>
         <div className="flex flex-col">
-          <span className="font-semibold text-sm text-gray-800">{name}</span>
-          <span className="text-xs text-gray-400">{date}</span>
+          <span className="font-semibold text-sm text-gray-800">{nameCus}</span>
+          <span className="text-xs text-gray-400">{datetime}</span>
         </div>
       </div>
 
@@ -35,7 +35,7 @@ export default function ReviewItem({
       {/* 3. Artist */}
       <div className="sm:w-1/6 text-sm">
         <span className="text-gray-400 block">Artist</span>
-        <span className="font-medium text-gray-800">{artist}</span>
+        <span className="font-medium text-gray-800">{nameAr}</span>
       </div>
 
       {/* 4. Rating + Button */}

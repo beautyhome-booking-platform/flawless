@@ -43,86 +43,68 @@ GET customers:
 
 GET artists: 
 {
-	"message": "Successfully retrieved the list of customers",
-	"result": {
-		"data": [
-			{
-				"idArtist": "CU-001",
-				"nameArtist": "Sarah Miller",
-				"avatar": "jkshfasjf",
-				"specialty": "Dermatology",
-				"status": 0(banded)/1(available),
-				"gender": -1(female)/0(unknown)/1(male),
-				"phone": 0123456789,
-				"email": "dhwkskw@gmail.com",
-				"dob": "2003/01/21",
-				"bankAccount": {
-					"bank": "VietCombank",
-					"stk": 7264728645263985,
-					"name": "Sarah Miller"
-				},
-				"address": "123 Lê Văn Việt, TP.HCM",
-				"areaBook": "tên thành phố/quận"
-				"note": "dshcfhdjflowjfoj",
-				"aboutArtist": "sdsaddsafwdsfefwefwe",
-				"timeJoin": "2023/06/21",
-				"services": [
-					{
-						"id": "SE-001",
-						"name": "Makeup",
-						"price": 2000000,
-						"description": "abcxyznkjcfhdkj",
-						"status": 0(banded)/1(available),
-					},
-										{
-						"id": "SE-002",
-						"name": "Makeup",
-						"price": 5000000,
-						"description": "abcxyznkjcfhdkj",
-					},
-				],
-				"certificate": [
-					{
-						"name": "The World Standard for Beauty and Spa Therapy",
-						"img": "cfjdsljf.pdf",
-						"time": "2024/01/06",
-						"status": 0(expired)/1(available),
-					},
-					{
-						"name": "Bridal Makeup Certificate",
-						"time": "2024/01/06",
-						"status": 0(expired)/1(available),
-					},
-				],
-				"reviewCount": 2150,
-				"rating": 4.9,
-				"experience": "5 years",
-				"schedule": [
-					{
-						"customer": {
-							"id": "Cu-001",
-							"name": "ABC",
-							"avatar": "fhjdhjferh",
-							"phone": 123543646,
-							"note": "ejhfjehfjkhewjk",
-							"address": "74 Le Van Viet Thu Duc"							
-						},
-						"service": "Make up",
-						"date": "Monday 19 2025",
-						"time": "12:00 PM",
-						"duration": "90 minute",
-						"status": -1/0/1
-					},
-				],
-				"totalIncome": 2000000,
-				"totalBooked": 34,
-				"totalCancel": 2,
-				"totalCustomer": 10,
-				"productUsed": []
-			},
-		],		
-	}
+  "artistList": [
+  {
+    "idArtist": string,
+    "nameArtist": string,
+    "avatar": string,
+    "role": string,
+    "specialty": string,
+    "status": number,
+    "gender": number,
+    "phone": string,
+    "email": string,
+    "dob": string,
+    "bankAccount": {
+      "bank": string,
+      "stk": string,
+      "name": string
+    },
+    "address": string,
+    "areaBook": string,
+    "note": string,
+    "aboutArtist": string,
+    "timeJoin": string,
+    "services": [
+      {
+        "id": string,
+        "name": string,
+        "price": number,
+        "description": string,
+        "status": number
+      },
+    ],
+    "certificateImg": array,
+    "reviewCount": number,
+    "rating": number,
+    "experience": string,
+      "schedule": [
+    {
+      "id": string,
+      "customer": {
+        "id": string,
+        "name": string,
+        "avatar": string,
+        "phone": string,
+        "note": string,
+        "address": string
+      },
+      "service": string,
+      "date": string,
+      "time": string,
+      "duration": string,
+      "status": number
+    },
+  ],
+    "totalIncome": number,
+    "totalBooked": number,
+    "totalCancel": number, 
+    "totalCustomer": number, 
+    "productUsed": array
+  },
+]
 }
+
 
 GET dardboardAdmin {
 	"totalRevenue": {

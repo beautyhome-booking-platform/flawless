@@ -26,7 +26,7 @@ export default function App() {
               <Route path="/dashboard-admin" element={<DashboardAdminPage />} />
               <Route path="/appointments" element={<Appointments />} />
               <Route path="/artists" element={<ArtistPage />} />
-              <Route path="/artist/1" element={<ArtistDetail />} />
+              <Route path="/artists/:id" element={<ArtistDetail />} /> 
               <Route path="/customers" element={<CustomerList />} />
               <Route path="/reviews" element={<ReviewPage />} />
               <Route path="/schedule" element={<SchedulePage />} />

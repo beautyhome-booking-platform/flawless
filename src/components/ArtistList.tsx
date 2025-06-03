@@ -1,192 +1,32 @@
 import { useState, useEffect } from "react";
 import ArtistItem from "./ArtistItem";
 import Pagination from "./Pagination";
-import { useSelector } from "react-redux";
-import type { RootState } from "../redux/store";
-const artistData = [
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-	{
-		name: "Dr. Olivia Grant",
-		code: "DB-001",
-		specialty: "Dermatology",
-		phone: "(123) 456-7891",
-		rating: 4.9,
-		reviewCount: 2150,
-		avatarUrl: "/avatars/olivia.png",
-		bgColor: "#d1fae5",
-	},
-	{
-		name: "Dr. David Carter",
-		code: "DB-002",
-		specialty: "Cosmetic Surgery",
-		phone: "(123) 456-7892",
-		rating: 4.8,
-		reviewCount: 1980,
-		avatarUrl: "/avatars/david.png",
-		bgColor: "#fef2f2",
-	},
-];
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../redux/store";
+import { fetchArtistList } from "@/redux/slices/artistListSlice";
 
 export default function ArtistList() {
+	// Artist List data
+	const dispatch = useDispatch<AppDispatch>();
+	const { artistList: dataArtistList } = useSelector(
+		(state: RootState) => state.artistList,
+	);
+	// Kiểm tra toàn bộ state lưu trong Redux
+	// const fullState = useSelector((state: RootState) => state);
+	// console.log("Full redux state", fullState);
+	
+	useEffect(() => {
+		dispatch(fetchArtistList());
+	}, [dispatch]);
+
+	// test đã fetch dữ liệu thành công chưa
+	// useEffect(() => {
+	// 	if (dataArtistList) {
+	// 		console.log("Dữ liệu dataArtistList đã fetch:", dataArtistList);
+	// 	}
+	// }, [dataArtistList]);
+
+	// Search
 	const artistSearch = useSelector(
 		(state: RootState) => state.search.artistSearch,
 	);
@@ -194,16 +34,19 @@ export default function ArtistList() {
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 
 	// Lọc dữ liệu theo search (tên customer hoặc artist) và ngày tháng năm
-	const filteredArtists = artistData.filter((c) =>
-		c.name.toLowerCase().includes(artistSearch.toLowerCase()),
-	);
+	const filteredArtists = Array.isArray(dataArtistList)
+	? dataArtistList.filter((c) =>
+		c.nameArtist.toLowerCase().includes(artistSearch.toLowerCase())
+	  )
+	: [];
+  
 	useEffect(() => {
 		setCurrentPage(1);
 	}, [artistSearch]);
 	// Calculate pagination
 	const indexOfLastItem = currentPage * itemsPerPage;
 	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-	const currentItems = filteredArtists.slice(indexOfFirstItem, indexOfLastItem);
+	const currentItems = filteredArtists?.slice(indexOfFirstItem, indexOfLastItem);
 	const totalItems = filteredArtists.length;
 
 	const handlePageChange = (page: number) => {
@@ -224,7 +67,18 @@ export default function ArtistList() {
 					</p>
 				) : (
 					currentItems.map((artist) => (
-						<ArtistItem key={artist.code} {...artist} />
+						<ArtistItem 
+							key={artist.idArtist}
+							name={artist.nameArtist}
+							code={artist.idArtist}
+							specialty={artist.specialty}
+							phone={artist.phone}
+							rating= {artist.rating}
+							reviewCount={artist.reviewCount}
+							avatarUrl={artist.avatar}
+							bgColor={"#fef2f2"}
+							
+						/>
 					))
 				)}
 			</div>

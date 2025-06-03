@@ -11,12 +11,12 @@ import {
 } from "react-icons/fa";
 
 const backgrounds = [
-	"/home2.webp",
-	"/home3.webp",
-	"/home4.webp",
-	"/home5.webp",
-	"/home6.webp",
-	"/home7.webp",
+	"/img/home2.webp",
+	"/img/home3.webp",
+	"/img/home4.webp",
+	"/img/home5.webp",
+	"/img/home6.webp",
+	"/img/home7.webp",
 ];
 const testimonials = [
 	{
@@ -310,8 +310,8 @@ const HomePage = () => {
 
 			{/* 4. Why Book Section */}
 			<section
-				className="bg-orange-100 py-12 px-4 md:px-16"
-				style={{ backgroundImage: `url(bg-why.webp)` }}
+				className="py-12 px-4 md:px-16"
+				style={{ backgroundImage: `url(img/bg-why.webp)` }}
 			>
 				<div className="text-center mb-10">
 					<h2 className="text-3xl font-serif font-semibold tracking-wide text-orange-800 inline-block pb-2">
@@ -365,7 +365,7 @@ const HomePage = () => {
 					{/* Right: Image */}
 					<div className="w-full">
 						<img
-							src="/public/why.webp"
+							src="/public/img/why.webp"
 							alt="Makeup Session"
 							className="w-full h-full object-cover rounded-md shadow-md"
 						/>
@@ -393,22 +393,49 @@ const HomePage = () => {
 				<h2 className="text-center text-3xl font-serif font-semibold tracking-wide text-orange-800 pb-2 mb-6 uppercase">
 					Collaborate with KOLs
 				</h2>
-<div className="overflow-hidden py-6" style={{ backgroundImage: `url(bg-why.webp)` }}>
-  <div className="flex gap-6 animate-scroll-x whitespace-nowrap">
-    {['kol1', 'kol2', 'kol3', 'kol4', 'kol5', 'kol6', 'kol7', 'kol8', 'kol9', 'kol10', 'kol1', 'kol2', 'kol3', 'kol4', 'kol5', 'kol6', 'kol7', 'kol8', 'kol9', 'kol10'].map((img, i) => (
-      <div key={i} className="h-64 w-40 flex-shrink-0 rounded-md overflow-hidden shadow-md bg-white">
-        <img
-          src={`/${img}.jpg`}
-          alt=""
-          className="w-full h-full object-cover"
-        />
-      </div>
-    ))}
-  </div>
+				<div
+					className="overflow-hidden py-6"
+					style={{ backgroundImage: `url(img/bg-why.webp)` }}
+				>
+					<div className="flex gap-6 animate-scroll-x whitespace-nowrap">
+						{[
+							"kol1",
+							"kol2",
+							"kol3",
+							"kol4",
+							"kol5",
+							"kol6",
+							"kol7",
+							"kol8",
+							"kol9",
+							"kol10",
+							"kol1",
+							"kol2",
+							"kol3",
+							"kol4",
+							"kol5",
+							"kol6",
+							"kol7",
+							"kol8",
+							"kol9",
+							"kol10",
+						].map((img, i) => (
+							<div
+								key={i}
+								className="h-64 w-40 flex-shrink-0 rounded-md overflow-hidden shadow-md bg-white"
+							>
+								<img
+									src={`/img/${img}.jpg`}
+									alt=""
+									className="w-full h-full object-cover"
+								/>
+							</div>
+						))}
+					</div>
 
-  {/* Pause on hover */}
-  <style>
-    {`
+					{/* Pause on hover */}
+					<style>
+						{`
       .animate-scroll-x {
         animation: scroll-x 20s linear infinite;
       }
@@ -424,16 +451,14 @@ const HomePage = () => {
         }
       }
     `}
-  </style>
-</div>
-
-
+					</style>
+				</div>
 			</section>
 
 			{/* 5. Review */}
 			<section
 				className="py-16 px-6"
-				style={{ backgroundImage: `url(bg-review.webp)` }}
+				style={{ backgroundImage: `url(img/bg-review.webp)` }}
 			>
 				<div className="max-w-screen-xl mx-auto grid md:grid-cols-4 gap-8 items-start">
 					{/* Left Title */}
@@ -479,7 +504,7 @@ const HomePage = () => {
 			{/* Footer */}
 			<footer
 				className="py-8 px-4"
-				style={{ backgroundImage: `url(bg-why.webp)` }}
+				style={{ backgroundImage: `url(img/bg-why.webp)` }}
 			>
 				<div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
 					{/* Brand Info */}
@@ -505,10 +530,14 @@ const HomePage = () => {
 
 					{/* Payment Methods */}
 					<div className="flex flex-wrap items-center gap-4 text-orange-800">
-						<img src="/public/visa.jpg" alt="Visa" className="h-6" />
-						<img src="/public/applepay.png" alt="Apple Pay" className="h-6" />
-						<img src="/public/momowebp.webp" alt="Momo" className="h-6" />
-						<img src="/public/vnpay.jpg" alt="VnPay" className="h-6" />
+						<img src="/public/img/visa.jpg" alt="Visa" className="h-6" />
+						<img
+							src="/public/img/applepay.png"
+							alt="Apple Pay"
+							className="h-6"
+						/>
+						<img src="/public/img/momowebp.webp" alt="Momo" className="h-6" />
+						<img src="/public/img/vnpay.jpg" alt="VnPay" className="h-6" />
 						<p className="text-xs italic">#GOFLAWLESS</p>
 					</div>
 				</div>
