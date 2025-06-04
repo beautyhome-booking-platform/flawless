@@ -1,9 +1,10 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store"; // path đến store của bạn
 import { Banknote, Hash, User } from "lucide-react";
 import ProductChips from "./ProductChips";
+import Schedule from "./Schedule";
 export default function ArtistDetail() {
 	const { id } = useParams<{ id: string }>();
 	const artistList = useSelector(
@@ -15,6 +16,13 @@ export default function ArtistDetail() {
 	if (!artist) {
 		return <p>Artist not found or loading...</p>;
 	}
+
+	const [showSchedule, setShowSchedule] = useState(false);
+	const navigate = useNavigate();
+
+	const handleViewSchedule = () => {
+		navigate(`/artists/${artist.idArtist}/schedule`);
+	};
 	return (
 		<div className="grid grid-cols-1 lg:grid-cols-4 gap-6 bg-[#f8f9fa] text-sm text-gray-700">
 			{/* Profile Card */}
@@ -110,8 +118,10 @@ export default function ArtistDetail() {
 							</span>
 						</li>
 					</ul>
-
-					<button className="mt-4 w-full bg-green-100 text-green-800 py-2 rounded-full font-medium text-sm">
+					<button
+						onClick={handleViewSchedule}
+						className="mt-4 w-full bg-green-100 text-green-800 py-2 rounded-full font-medium text-sm"
+					>
 						View Schedule
 					</button>
 				</div>

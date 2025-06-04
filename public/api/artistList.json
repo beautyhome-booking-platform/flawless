@@ -118,6 +118,54 @@
           "time": "02:00 PM",
           "duration": "129 minutes",
           "status": 1
+        },
+        {
+          "id": "SCH-001-6",
+          "customer": {
+            "id": "CUS-001-1",
+            "name": "Olivia Wilson",
+            "avatar": "https://randomuser.me/api/portraits/women/78.jpg",
+            "phone": "0955247080",
+            "note": "Returning client",
+            "address": "Hai Phong"
+          },
+          "service": "Bridal Makeup",
+          "date": "2025-06-02",
+          "time": "08:30 AM",
+          "duration": "45 minutes",
+          "status": 1
+        },
+        {
+          "id": "SCH-001-7",
+          "customer": {
+            "id": "CUS-001-1",
+            "name": "Olivia Wilson",
+            "avatar": "https://randomuser.me/api/portraits/women/78.jpg",
+            "phone": "0955247080",
+            "note": "Returning client",
+            "address": "Hai Phong"
+          },
+          "service": "Bridal Makeup",
+          "date": "2025-06-03",
+          "time": "05:30 PM",
+          "duration": "30 minutes",
+          "status": 0
+        },
+        {
+          "id": "SCH-001-8",
+          "customer": {
+            "id": "CUS-001-1",
+            "name": "Olivia Wilson",
+            "avatar": "https://randomuser.me/api/portraits/women/78.jpg",
+            "phone": "0955247080",
+            "note": "Returning client",
+            "address": "Hai Phong"
+          },
+          "service": "Bridal Makeup",
+          "date": "2025-06-04",
+          "time": "10:0 AM",
+          "duration": "60 minutes",
+          "status": 1
         }
       ],
       "totalIncome": 9819,

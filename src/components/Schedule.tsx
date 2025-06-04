@@ -2,13 +2,18 @@ import { useState } from "react";
 import { format, startOfWeek, addDays } from "date-fns";
 const hourBlockHeight = 120; // hoặc 140, 160 tùy UI mong muốn
 import SyntheticDialog from "./SyntheticDialog";
-const timeToMinutes = (timeStr: string): number => {
+import type { RootState } from "../redux/store";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+function timeToMinutes(timeStr: string): number {
 	const [time, modifier] = timeStr.split(" ");
 	let [hours, minutes] = time.split(":").map(Number);
+
 	if (modifier === "PM" && hours !== 12) hours += 12;
 	if (modifier === "AM" && hours === 12) hours = 0;
+
 	return hours * 60 + minutes;
-};
+}
 
 const hours = [
 	"6:00 AM",
@@ -28,191 +33,253 @@ const hours = [
 	"8:00 PM",
 ];
 
-const getColor = (type: string) => {
-	return type === "green"
-		? "from-green-50 to-green-100"
-		: "from-red-50 to-red-100";
+const getColor = (type: number) => {
+	return type === 0 ? "from-green-50 to-green-100" : "from-red-50 to-red-100";
 };
+
+// const getWeekDays = (weekOffset = 0) => {
+// 	const now = new Date();
+// 	const base = startOfWeek(now, { weekStartsOn: 1 }); // Always Monday of this week
+// 	const start = addDays(base, weekOffset * 7); // Offset in full weeks
+// 	return Array.from({ length: 7 }, (_, i) =>
+// 		format(addDays(start, i), "EEEE d"),
+// 	);
+// };
 
 const getWeekDays = (weekOffset = 0) => {
 	const now = new Date();
-	const base = startOfWeek(now, { weekStartsOn: 1 }); // Always Monday of this week
-	const start = addDays(base, weekOffset * 7); // Offset in full weeks
-	return Array.from({ length: 7 }, (_, i) =>
-		format(addDays(start, i), "EEEE d"),
-	);
+	const base = startOfWeek(now, { weekStartsOn: 1 }); // Monday
+	const start = addDays(base, weekOffset * 7);
+
+	return Array.from({ length: 7 }, (_, i) => {
+		const date = addDays(start, i);
+		return {
+			label: format(date, "EEEE d"), // e.g. "Monday 26"
+			value: format(date, "yyyy-MM-dd"), // e.g. "2025-05-26"
+		};
+	});
 };
-const allAppointments = [
-	// Week 1: Monday 19 – Friday 23
-	{
-		name: "Sarah Miller",
-		time: "9:00 AM",
-		day: "Monday 19",
-		treatment: "Facial Rejuvenation",
-		type: "red",
-		avatar: "/avatars/avatar1.jpg",
-		duration: 30,
-	},
-	{
-		name: "Grace Parker",
-		time: "9:30 AM",
-		day: "Tuesday 20",
-		treatment: "Scar Removal",
-		type: "green",
-		avatar: "/avatars/avatar2.jpg",
-		duration: 60,
-	},
-	{
-		name: "Emma Wilson",
-		time: "11:30 AM",
-		day: "Tuesday 20",
-		treatment: "Chemical Peel",
-		type: "red",
-		avatar: "/avatars/avatar3.jpg",
-		duration: 90,
-	},
-	{
-		name: "Daniel Evans",
-		time: "11:30 AM",
-		day: "Tuesday 20",
-		treatment: "Tattoo Removal",
-		type: "green",
-		avatar: "/avatars/avatar4.jpg",
-		duration: 60,
-	},
-	{
-		name: "Julia Watson",
-		time: "3:00 PM",
-		day: "Thursday 22",
-		treatment: "Botox",
-		type: "red",
-		avatar: "/avatars/avatar5.jpg",
-		duration: 30,
-	},
-	{
-		name: "Megan Roberts",
-		time: "1:15 PM",
-		day: "Friday 23",
-		treatment: "Laser Hair Removal",
-		type: "green",
-		avatar: "/avatars/avatar6.jpg",
-		duration: 45,
-	},
-	{
-		name: "Henry Turner",
-		time: "10:45 AM",
-		day: "Monday 19",
-		treatment: "Microdermabrasion",
-		type: "green",
-		avatar: "/avatars/avatar7.jpg",
-		duration: 30,
-	},
+// const allAppointments = [
+// 	// Week 1: Monday 19 – Friday 23
+// 	{
+// 		name: "Sarah Miller",
+// 		time: "9:00 AM",
+// 		day: "Monday 19",
+// 		treatment: "Facial Rejuvenation",
+// 		type: "red",
+// 		avatar: "/avatars/avatar1.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Grace Parker",
+// 		time: "9:30 AM",
+// 		day: "Tuesday 20",
+// 		treatment: "Scar Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar2.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Emma Wilson",
+// 		time: "11:30 AM",
+// 		day: "Tuesday 20",
+// 		treatment: "Chemical Peel",
+// 		type: "red",
+// 		avatar: "/avatars/avatar3.jpg",
+// 		duration: 90,
+// 	},
+// 	{
+// 		name: "Daniel Evans",
+// 		time: "11:30 AM",
+// 		day: "Tuesday 20",
+// 		treatment: "Tattoo Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar4.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Julia Watson",
+// 		time: "3:00 PM",
+// 		day: "Thursday 22",
+// 		treatment: "Botox",
+// 		type: "red",
+// 		avatar: "/avatars/avatar5.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Megan Roberts",
+// 		time: "1:15 PM",
+// 		day: "Friday 23",
+// 		treatment: "Laser Hair Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar6.jpg",
+// 		duration: 45,
+// 	},
+// 	{
+// 		name: "Henry Turner",
+// 		time: "10:45 AM",
+// 		day: "Monday 19",
+// 		treatment: "Microdermabrasion",
+// 		type: "green",
+// 		avatar: "/avatars/avatar7.jpg",
+// 		duration: 30,
+// 	},
 
-	// Week 2: Monday 26 – Friday 30
-	{
-		name: "Liam Johnson",
-		time: "9:00 AM",
-		day: "Monday 26",
-		treatment: "Skin Check",
-		type: "green",
-		avatar: "/avatars/avatar8.jpg",
-		duration: 30,
-	},
-	{
-		name: "Olivia Brown",
-		time: "10:30 AM",
-		day: "Tuesday 27",
-		treatment: "Acne Treatment",
-		type: "red",
-		avatar: "/avatars/avatar9.jpg",
-		duration: 60,
-	},
-	{
-		name: "Noah Davis",
-		time: "11:15 AM",
-		day: "Wednesday 28",
-		treatment: "Body Contouring",
-		type: "green",
-		avatar: "/avatars/avatar10.jpg",
-		duration: 75,
-	},
-	{
-		name: "Ava Garcia",
-		time: "12:00 PM",
-		day: "Thursday 29",
-		treatment: "Scar Revision",
-		type: "red",
-		avatar: "/avatars/avatar11.jpg",
-		duration: 45,
-	},
-	{
-		name: "William Anderson",
-		time: "2:00 PM",
-		day: "Friday 30",
-		treatment: "Chemical Peel",
-		type: "green",
-		avatar: "/avatars/avatar12.jpg",
-		duration: 15,
-	},
+// 	// Week 2: Monday 26 – Friday 30
+// 	{
+// 		name: "Liam Johnson",
+// 		time: "9:00 AM",
+// 		day: "Monday 26",
+// 		treatment: "Skin Check",
+// 		type: "green",
+// 		avatar: "/avatars/avatar8.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Olivia Brown",
+// 		time: "10:30 AM",
+// 		day: "Tuesday 27",
+// 		treatment: "Acne Treatment",
+// 		type: "red",
+// 		avatar: "/avatars/avatar9.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Noah Davis",
+// 		time: "11:15 AM",
+// 		day: "Wednesday 28",
+// 		treatment: "Body Contouring",
+// 		type: "green",
+// 		avatar: "/avatars/avatar10.jpg",
+// 		duration: 75,
+// 	},
+// 	{
+// 		name: "Ava Garcia",
+// 		time: "12:00 PM",
+// 		day: "Thursday 29",
+// 		treatment: "Scar Revision",
+// 		type: "red",
+// 		avatar: "/avatars/avatar11.jpg",
+// 		duration: 45,
+// 	},
+// 	{
+// 		name: "William Anderson",
+// 		time: "2:00 PM",
+// 		day: "Friday 30",
+// 		treatment: "Chemical Peel",
+// 		type: "green",
+// 		avatar: "/avatars/avatar12.jpg",
+// 		duration: 15,
+// 	},
 
-	// Week 3: Monday 2 – Friday 6 (June)
-	{
-		name: "James Thomas",
-		time: "9:00 AM",
-		day: "Monday 2",
-		treatment: "Botox",
-		type: "red",
-		avatar: "/avatars/avatar13.jpg",
-		duration: 60,
-	},
-	{
-		name: "Sophia Martinez",
-		time: "9:00 AM",
-		day: "Monday 2",
-		treatment: "Consultation",
-		type: "green",
-		avatar: "/avatars/avatar14.jpg",
-		duration: 30,
-	},
-	{
-		name: "Benjamin Moore",
-		time: "1:45 PM",
-		day: "Wednesday 4",
-		treatment: "Hair Removal",
-		type: "green",
-		avatar: "/avatars/avatar15.jpg",
-		duration: 15,
-	},
-	{
-		name: "Mia Taylor",
-		time: "2:15 PM",
-		day: "Wednesday 4",
-		treatment: "Anti-aging",
-		type: "red",
-		avatar: "/avatars/avatar16.jpg",
-		duration: 60,
-	},
-	{
-		name: "Ethan Clark",
-		time: "3:00 PM",
-		day: "Friday 6",
-		treatment: "Fillers",
-		type: "red",
-		avatar: "/avatars/avatar17.jpg",
-		duration: 30,
-	},
-];
+// 	// Week 3: Monday 2 – Friday 6 (June)
+// 	{
+// 		name: "James Thomas",
+// 		time: "9:00 AM",
+// 		day: "Monday 2",
+// 		treatment: "Botox",
+// 		type: "red",
+// 		avatar: "/avatars/avatar13.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Sophia Martinez",
+// 		time: "9:00 AM",
+// 		day: "Monday 2",
+// 		treatment: "Consultation",
+// 		type: "green",
+// 		avatar: "/avatars/avatar14.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Benjamin Moore",
+// 		time: "1:45 PM",
+// 		day: "Wednesday 4",
+// 		treatment: "Hair Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar15.jpg",
+// 		duration: 15,
+// 	},
+// 	{
+// 		name: "Mia Taylor",
+// 		time: "2:15 PM",
+// 		day: "Wednesday 4",
+// 		treatment: "Anti-aging",
+// 		type: "red",
+// 		avatar: "/avatars/avatar16.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Ethan Clark",
+// 		time: "3:00 PM",
+// 		day: "Friday 6",
+// 		treatment: "Fillers",
+// 		type: "red",
+// 		avatar: "/avatars/avatar17.jpg",
+// 		duration: 30,
+// 	},
+// ];
+interface ScheduleItem {
+	id: string;
+	customer: {
+		id: string;
+		name: string;
+		avatar: string;
+		phone: string;
+		note: string;
+		address: string;
+	};
+	service: string;
+	date: string;
+	time: string;
+	duration: string;
+	status: number;
+}
+
+interface ScheduleProps {
+	schedule: ScheduleItem[];
+}
 
 const Schedule = () => {
+	const { id } = useParams<{ id: string }>();
+	const artistList = useSelector(
+		(state: RootState) => state.artistList.artistList,
+	);
+	const artist = artistList.find((a) => a.idArtist === id);
+
+	if (!artist) {
+		return (
+			<p className="text-sm text-gray-500">
+				Artist not found or data not loaded.
+			</p>
+		);
+	}
+	// Kiểm tra đã có dữ liệu trong biến artist chưa
+	// console.log("artist:", artist); 
+	const schedule = artist?.schedule;
+	//Kiểm tra đã có dữ liệu trong biến schedule chưa
+	// console.log("schedule:", schedule);
+
 	const [weekOffset, setWeekOffset] = useState(0);
 	const days = getWeekDays(weekOffset);
 	const currentTime = new Date();
 	const currentDayLabel = format(currentTime, "EEEE d");
 	const currentMinutes = currentTime.getHours() * 60 + currentTime.getMinutes();
-	const getRingColor = (type: string) => {
-		return type === "green" ? "hover:ring-green-400" : "hover:ring-red-400";
+	const getRingColor = (type: number) => {
+		return type === 0 ? "hover:ring-green-400" : "hover:ring-red-400";
 	};
 	``;
+	// Kiểm tra dữ liệu của trường date trong mảng schedule
+	// console.log(
+	// 	"schedule date values:",
+	// 	schedule.map((a) => a.date),
+	// );
+	// Kiểm tra dữ liệu của trường value trong mảng getWeekDays
+	// console.log(
+	// 	"week view values:",
+	// 	days.map((d) => d.value),
+	// );
+
 	const [open, setOpen] = useState(false);
 	return (
 		<>
@@ -240,7 +307,9 @@ const Schedule = () => {
 						>
 							Synthetic
 						</button>
-						<SyntheticDialog isOpen={open} onClose={() => setOpen(false)} />
+						{artist && (
+						<SyntheticDialog isOpen={open} onClose={() => setOpen(false)} artist={artist} />
+					)}
 					</div>
 				</div>
 				{/* Header row */}
@@ -251,11 +320,11 @@ const Schedule = () => {
 						UTC +7
 					</div>
 					{days.map((day) => {
-						const [weekday, date] = day.split(" ");
-						const isToday = currentDayLabel === day;
+						const [weekday, date] = day.label.split(" ");
+						const isToday = currentDayLabel === day.label;
 						return (
 							<div
-								key={day}
+								key={day.label}
 								className={`text-center p-2 rounded-xl border shadow-md font-semibold ${
 									isToday ? "bg-green-100 border-green-300" : "bg-white"
 								}`}
@@ -285,28 +354,29 @@ const Schedule = () => {
 								</div>
 
 								{days.map((dayLabel) => {
-									const cellAppointments = allAppointments.filter(
+									const cellAppointments = schedule?.filter(
 										(a) =>
-											a.day === dayLabel &&
+											a.date === dayLabel.value &&
 											timeToMinutes(a.time) >= hourStart &&
 											timeToMinutes(a.time) < hourStart + 60,
 									);
-
+									// debugger;
 									return (
 										<div
-											key={dayLabel}
+											key={dayLabel.value}
 											className="border-b relative h-28 bg-white"
 											style={{
 												height: `${hourBlockHeight}px`,
 												overflowY: "visible",
-											}} // 👈 tăng chiều cao, cho phép tràn ra
+											}} // tăng chiều cao, cho phép tràn ra
 										>
-											{cellAppointments.map((appt, index) => {
+											{cellAppointments?.map((appt, index) => {
 												const start = timeToMinutes(appt.time);
 												const offsetTop =
 													((start - hourStart) / 60) * hourBlockHeight;
 												const height =
-													((appt.duration / 60) * hourBlockHeight, 60);
+													(Number(appt.duration.replace(/\D/g, "")) / 60) *
+													hourBlockHeight;
 												const total = cellAppointments.length;
 												const widthPercent = 100 / total;
 												const leftPercent = index * widthPercent;
@@ -315,11 +385,11 @@ const Schedule = () => {
 													<div
 														key={index}
 														className={`absolute rounded-xl shadow-md p-2 text-xs bg-gradient-to-r ${getColor(
-															appt.type,
+															appt.status,
 														)} overflow-hidden 
   transition-all duration-200 ease-in-out 
   hover:shadow-2xl hover:z-[999] hover:ring-2 hover:ring-offset-1 ${getRingColor(
-		appt.type,
+		appt.status,
 	)}`}
 														style={{
 															top: `${offsetTop}%`,
@@ -330,10 +400,10 @@ const Schedule = () => {
 														}}
 													>
 														<p className="font-semibold text-gray-800 truncate">
-															{appt.name}
+															{appt.customer.name}
 														</p>
 														<p className="text-gray-600 text-xs truncate">
-															{appt.treatment}
+															{appt.service}
 														</p>
 														<p className="text-gray-500 text-xs truncate">
 															{appt.time}
