@@ -89,7 +89,7 @@ const HomePage = () => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setIndex((prev) => (prev + 1) % backgrounds.length);
-		}, 4000); // 5s đổi ảnh
+		}, 4000); // 4s đổi ảnh
 
 		return () => clearInterval(interval);
 	}, []);
@@ -97,7 +97,7 @@ const HomePage = () => {
 	return (
 		<div className="font-sans text-gray-800">
 			{/* 1. Header */}
-			<section className="relative h-[100vh] overflow-hidden text-white">
+			<section className="relative h-[82vh] overflow-hidden text-white">
 				{/* Background Slideshow */}
 				{backgrounds.map((bg, i) => (
 					<div
@@ -374,19 +374,74 @@ const HomePage = () => {
 			</section>
 
 			{/* Signature Services */}
-			<section className="text-white py-12 px-6">
+			{/* <section className="text-white py-12 px-6">
 				<h2 className="text-center text-3xl font-serif font-semibold tracking-wide text-orange-800 pb-2 mb-6">
 					OUR SIGNATURE SERVICES
-				</h2>
-				<div className="grid md:grid-cols-3 gap-4">
+				</h2> */}
+			{/* <div className="grid md:grid-cols-3 gap-4">
 					<div className="bg-gray-700 h-48 rounded-md"></div>
 					<div className="bg-gray-700 h-48 rounded-md"></div>
 					<div className="bg-gray-700 h-48 rounded-md"></div>
 					<div className="bg-gray-700 h-48 rounded-md"></div>
 					<div className="bg-gray-700 h-48 rounded-md"></div>
 					<div className="bg-gray-700 h-48 rounded-md"></div>
-				</div>
-			</section>
+				</div> */}
+
+			{/* <div className="grid md:grid-cols-3 gap-4">
+
+  <div className="bg-gray-700 h-48 rounded-md">
+    <img
+      src="https://tse4.mm.bing.net/th?id=OIP.HNFwgcujd-rXTBPZ7ergaQHaEK&pid=Api"
+      alt="Makeup đi tiệc"
+      className="w-full h-full object-cover rounded-md"
+    />
+  </div>
+
+
+  <div className="bg-gray-700 h-48 rounded-md">
+    <img
+      src="https://tse3.mm.bing.net/th?id=OIP.lE6x7cQIPBzZlVfw6DIxtQHaHa&r=0&pid=Api"
+      alt="Makeup kỷ yếu"
+      className="w-full h-full object-cover rounded-md"
+    />
+  </div>
+
+
+  <div className="bg-gray-700 h-48 rounded-md">
+    <img
+      src="https://tse3.mm.bing.net/th?id=OIP.yubdQ5OKMFrV_bhVHwEW9QHaJ4&pid=Api"
+      alt="Makeup cô dâu"
+      className="w-full h-full object-cover rounded-md"
+    />
+  </div>
+
+  <div className="bg-gray-700 h-48 rounded-md">
+    <img
+      src="https://tse3.mm.bing.net/th?id=OIP.ZIUhxIqF2FLTgDBe55JEjAHaJM&r=0&pid=Api"
+      alt="Makeup Halloween 1"
+      className="w-full h-full object-cover rounded-md"
+    />
+  </div>
+
+  <div className="bg-gray-700 h-48 rounded-md">
+    <img
+      src="https://i.pinimg.com/564x/aa/e1/f2/aae1f2b9f1f367a7d206e8efc48279c0.jpg"
+      alt="Makeup Halloween 2"
+      className="w-full h-full object-cover rounded-md"
+    />
+  </div>
+
+
+  <div className="bg-gray-700 h-48 rounded-md">
+    <img
+      src="https://static.wixstatic.com/media/ea1efb_53f2e3d23eaf4db2bbf92c9a40e151a4~mv2.jpg/v1/fill/w_560,h_373,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/ea1efb_53f2e3d23eaf4db2bbf92c9a40e151a4~mv2.jpg"
+      alt="Makeup dự tiệc sang trọng"
+      className="w-full h-full object-cover rounded-md"
+    />
+  </div>
+</div> */}
+
+			{/* </section> */}
 
 			{/* Expanded Locations */}
 			<section className="py-12 px-6">

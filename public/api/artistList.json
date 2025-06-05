@@ -350,7 +350,7 @@
           "name": "Bridal Makeup",
           "price": 150,
           "description": "Full bridal makeup package",
-          "status": 1
+          "status": 0
         },
         {
           "id": "SVC-003",
@@ -508,7 +508,7 @@
           "name": "Photoshoot Makeup",
           "price": 130,
           "description": "Makeup for photoshoots",
-          "status": 1
+          "status": 0
         }
       ],
       "certificateImg": [
@@ -1038,7 +1038,7 @@
           "name": "Party Makeup",
           "price": 100,
           "description": "Evening event makeup",
-          "status": 1
+          "status": 0
         },
         {
           "id": "SVC-003",
@@ -1182,7 +1182,7 @@
           "name": "Party Makeup",
           "price": 100,
           "description": "Evening event makeup",
-          "status": 1
+          "status": 0
         },
         {
           "id": "SVC-003",
@@ -1328,7 +1328,7 @@
           "name": "Photoshoot Makeup",
           "price": 130,
           "description": "Makeup for photoshoots",
-          "status": 1
+          "status": 0
         }
       ],
       "certificateImg": [

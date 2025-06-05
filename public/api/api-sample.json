@@ -1,108 +1,96 @@
-GET customers:
-{
-	"message": "Successfully retrieved the list of customers",
-	"result": {
-		"data": [
-			{
-				"idCustomer": "CU-001",
-				"nameCustomer": "Sarah Miller",
-				"avatar": "jkshfasjf",
-				"artist": [
-					{
-						// filter theo idCustomer
-						"id": "AR-001",
-						"name": "Dr. Olivia Grant",
-					}
-				],
-				"services": [
-					{
-						"id": "SE-001",
-						"name": "Makeup",
-						"description": "abcxyznkjcfhdkj",
-						"payment-status": -1(unsuccessful)/0(pending)/1(paid),
-						"timebooking": "2025-09-12 - 09:00 AM",
-					},
-										{
-						"id": "SE-002",
-						"name": "Makeup",
-						"description": "abcxyznkjcfhdkj",
-						"payment-status": -1(unsuccessful)/0(pending)/1(paid),
-						"timebooking": "2025-09-13 - 09:00 AM",
-					},
-				],
-				"status": 0(banded)/1(available),
-				"gender": -1(female)/0(unknown)/1(male),
-				"phone": 0123456789,
-				"email": "dhwkskw@gmail.com",
-				"address": "123 Lê Văn Việt, TP.HCM",
-				"note": "dshcfhdjflowjfoj",
-			},
-		],		
-	}
+GET customers: {
+	"customerList": [
+		{
+			"idCus": string,
+			"nameCus": string,
+			"avatarCus": string,
+			"artist": [
+				{
+					// filter theo idCus, những artist mà customer này đã từng booking
+					"idAr": string,
+					"nameAr": string,
+				},
+			],
+			"services": [
+				{
+					"idSer": string,
+					"nameSer": string,
+					"description": string,
+					"payment-status": number, //-1(unsuccessful)/0(pending)/1(paid),
+					"timebooking": string //"2025-09-12 - 09:00 AM",
+				},
+			],
+			"status": number, //0(banded)/1(available),
+			"gender": number, //-1(female)/0(unknown)/1(male),
+			"phone": number,
+			"email": string,
+			"address": string,
+			"note": string
+		},
+	]
 }
 
-GET artists: 
-{
-  "artistList": [
-  {
-    "idArtist": string,
-    "nameArtist": string,
-    "avatar": string,
-    "role": string,
-    "specialty": string,
-    "status": number,
-    "gender": number,
-    "phone": string,
-    "email": string,
-    "dob": string,
-    "bankAccount": {
-      "bank": string,
-      "stk": string,
-      "name": string
-    },
-    "address": string,
-    "areaBook": string,
-    "note": string,
-    "aboutArtist": string,
-    "timeJoin": string,
-    "services": [
-      {
-        "id": string,
-        "name": string,
-        "price": number,
-        "description": string,
-        "status": number
-      },
-    ],
-    "certificateImg": array,
-    "reviewCount": number,
-    "rating": number,
-    "experience": string,
-      "schedule": [
-    {
-      "id": string,
-      "customer": {
-        "id": string,
-        "name": string,
-        "avatar": string,
-        "phone": string,
-        "note": string,
-        "address": string
-      },
-      "service": string,
-      "date": string,
-      "time": string,
-      "duration": string,
-      "status": number
-    },
-  ],
-    "totalIncome": number,
-    "totalBooked": number,
-    "totalCancel": number, 
-    "totalCustomer": number, 
-    "productUsed": array
-  },
-]
+GET artists: {
+	"artistList": [
+		{
+			"idArtist": string,
+			"nameArtist": string,
+			"avatar": string,
+			"role": string,
+			"specialty": string,
+			"status": number,
+			"gender": number,
+			"phone": string,
+			"email": string,
+			"dob": string,
+			"bankAccount": {
+				"bank": string,
+				"stk": string,
+				"name": string
+			},
+			"address": string,
+			"areaBook": string,
+			"note": string,
+			"aboutArtist": string,
+			"timeJoin": string,
+			"services": [
+				{
+					"id": string,
+					"name": string,
+					"price": number,
+					"description": string,
+					"status": number
+				},
+			],
+			"certificateImg": array,
+			"reviewCount": number,
+			"rating": number,
+			"experience": string,
+			"schedule": [
+				{
+					"id": string,
+					"customer": {
+						"id": string,
+						"name": string,
+						"avatar": string,
+						"phone": string,
+						"note": string,
+						"address": string
+					},
+					"service": string,
+					"date": string,
+					"time": string,
+					"duration": string,
+					"status": number
+				},
+			],
+			"totalIncome": number,
+			"totalBooked": number,
+			"totalCancel": number,
+			"totalCustomer": number,
+			"productUsed": array
+		},
+	]
 }
 
 
@@ -119,7 +107,7 @@ GET dardboardAdmin {
 					"month": "",
 					"income": number
 				},
-				"bestNetProfit" : {
+				"bestNetProfit": {
 					"month": "",
 					"netProfit": number
 				},
@@ -224,11 +212,7 @@ GET dardboardAdmin {
 				"jan": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -237,11 +221,7 @@ GET dardboardAdmin {
 				"feb": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -250,11 +230,7 @@ GET dardboardAdmin {
 				"mar": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -263,11 +239,7 @@ GET dardboardAdmin {
 				"apr": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -276,11 +248,7 @@ GET dardboardAdmin {
 				"may": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -289,11 +257,7 @@ GET dardboardAdmin {
 				"jun": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -302,11 +266,7 @@ GET dardboardAdmin {
 				"jul": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -315,11 +275,7 @@ GET dardboardAdmin {
 				"aug": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -328,11 +284,7 @@ GET dardboardAdmin {
 				"sep": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -341,11 +293,7 @@ GET dardboardAdmin {
 				"oct": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -354,11 +302,7 @@ GET dardboardAdmin {
 				"nov": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,
@@ -367,11 +311,7 @@ GET dardboardAdmin {
 				"dec": [
 					// lấy 5 artist có lượt booking từ trong 1 tháng, sắp xếp theo thứ tự giảm dần
 					{
-						"idAr: "",
-						"nameAr": "",
-						"avatarAr": "",
-						"status": number,
-						"avgRating": number,
+						"idAr: "","nameAr": "","avatarAr": "","status": number,"avgRating": number,
 						"totalRevenueInMonth": number,
 						"totalBookingInMonth": number,
 						"totalCancelInMonth": number,

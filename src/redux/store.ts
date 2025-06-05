@@ -11,6 +11,7 @@ import artistReducer from "./slices/artistSlice";
 import reviewReducer from "./slices/reviewSlice";
 import appointmentReducer from "./slices/appointmentSlice";
 import artistListReducer from "./slices/artistListSlice";
+import customerListReducer from "./slices/customerListSlice";
 // import other reducers...
 
 const persistConfig = {
@@ -31,6 +32,7 @@ export const store = configureStore({
 		review: reviewReducer,
 		appointment: appointmentReducer,
 		artistList: persistedArtistReducer,
+		customerList: customerListReducer,
 		// other reducers...
 	},
 	middleware: (getDefaultMiddleware) =>

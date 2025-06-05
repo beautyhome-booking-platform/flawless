@@ -30,9 +30,9 @@ export default function CustomerTableRow({
       <td className="py-3 px-4">{service}</td>
       <td className="py-3 px-4">
         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-          status === 'Completed' 
+          (status === 'Completed' || status === 'Available')
             ? 'bg-green-100 text-green-700'
-            : status === 'In Progress'
+            : (status === 'In Progress' || status === 'Banned')
               ? 'bg-red-100 text-orange-700'
               : 'bg-gray-100 text-gray-700'
         }`}>

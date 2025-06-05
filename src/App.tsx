@@ -5,13 +5,15 @@ import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 // Import các page/layout/component
 import Appointments from "./pages/Appointments";
-import CustomerList from "./pages/CustomerList";
+import CustomerListPage from "./pages/CustomerListPage";
 import ArtistPage from "./pages/ArtistPage";
 import ArtistDetail from "./components/ArtistDetail";
 import ReviewPage from "./pages/ReviewPage";
 import SchedulePage from "./pages/SchedulePage";
 import HomePage from "./pages/HomePage";
 import DashboardAdminPage from "./pages/DashBoardAdminPage";
+import ServicePage from "./pages/ServicePage";
+
 export default function App() {
 	return (
 		<Provider store={store}>
@@ -32,12 +34,13 @@ export default function App() {
 								<Route path="/appointments" element={<Appointments />} />
 								<Route path="/artists" element={<ArtistPage />} />
 								<Route path="/artists/:id" element={<ArtistDetail />} />
-								<Route path="/customers" element={<CustomerList />} />
+								<Route path="/customers" element={<CustomerListPage />} />
 								<Route path="/reviews" element={<ReviewPage />} />
 								<Route
 									path="/artists/:id/schedule"
 									element={<SchedulePage />}
 								/>
+								<Route path="/services" element={<ServicePage/>} />
 								{/* thêm các route khác ở đây */}
 							</Route>
 						</Routes>
