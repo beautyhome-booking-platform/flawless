@@ -6,8 +6,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* ✅ THÊM 2 DÒNG NÀY */
+    /* THÊM 2 DÒNG NÀY */
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
@@ -23,8 +22,8 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },

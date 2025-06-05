@@ -399,7 +399,7 @@ export default Schedule;
 // 		name: "Ethan Clark",
 // 		time: "3:00 PM",
 // 		day: "Friday 6",
-// 		treatment: "Fillers",
+// 		treatment: "Fillers",git
 // 		type: "red",
 // 		avatar: "/avatars/avatar17.jpg",
 // 		duration: 30,
