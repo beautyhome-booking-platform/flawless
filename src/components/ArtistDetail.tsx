@@ -1,10 +1,8 @@
-import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store"; // path đến store của bạn
 import { Banknote, Hash, User } from "lucide-react";
 import ProductChips from "./ProductChips";
-import Schedule from "./Schedule";
 export default function ArtistDetail() {
 	const { id } = useParams<{ id: string }>();
 	const artistList = useSelector(
@@ -16,8 +14,6 @@ export default function ArtistDetail() {
 	if (!artist) {
 		return <p>Artist not found or loading...</p>;
 	}
-
-	const [showSchedule, setShowSchedule] = useState(false);
 	const navigate = useNavigate();
 
 	const handleViewSchedule = () => {

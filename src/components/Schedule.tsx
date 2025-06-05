@@ -59,186 +59,6 @@ const getWeekDays = (weekOffset = 0) => {
 		};
 	});
 };
-// const allAppointments = [
-// 	// Week 1: Monday 19 – Friday 23
-// 	{
-// 		name: "Sarah Miller",
-// 		time: "9:00 AM",
-// 		day: "Monday 19",
-// 		treatment: "Facial Rejuvenation",
-// 		type: "red",
-// 		avatar: "/avatars/avatar1.jpg",
-// 		duration: 30,
-// 	},
-// 	{
-// 		name: "Grace Parker",
-// 		time: "9:30 AM",
-// 		day: "Tuesday 20",
-// 		treatment: "Scar Removal",
-// 		type: "green",
-// 		avatar: "/avatars/avatar2.jpg",
-// 		duration: 60,
-// 	},
-// 	{
-// 		name: "Emma Wilson",
-// 		time: "11:30 AM",
-// 		day: "Tuesday 20",
-// 		treatment: "Chemical Peel",
-// 		type: "red",
-// 		avatar: "/avatars/avatar3.jpg",
-// 		duration: 90,
-// 	},
-// 	{
-// 		name: "Daniel Evans",
-// 		time: "11:30 AM",
-// 		day: "Tuesday 20",
-// 		treatment: "Tattoo Removal",
-// 		type: "green",
-// 		avatar: "/avatars/avatar4.jpg",
-// 		duration: 60,
-// 	},
-// 	{
-// 		name: "Julia Watson",
-// 		time: "3:00 PM",
-// 		day: "Thursday 22",
-// 		treatment: "Botox",
-// 		type: "red",
-// 		avatar: "/avatars/avatar5.jpg",
-// 		duration: 30,
-// 	},
-// 	{
-// 		name: "Megan Roberts",
-// 		time: "1:15 PM",
-// 		day: "Friday 23",
-// 		treatment: "Laser Hair Removal",
-// 		type: "green",
-// 		avatar: "/avatars/avatar6.jpg",
-// 		duration: 45,
-// 	},
-// 	{
-// 		name: "Henry Turner",
-// 		time: "10:45 AM",
-// 		day: "Monday 19",
-// 		treatment: "Microdermabrasion",
-// 		type: "green",
-// 		avatar: "/avatars/avatar7.jpg",
-// 		duration: 30,
-// 	},
-
-// 	// Week 2: Monday 26 – Friday 30
-// 	{
-// 		name: "Liam Johnson",
-// 		time: "9:00 AM",
-// 		day: "Monday 26",
-// 		treatment: "Skin Check",
-// 		type: "green",
-// 		avatar: "/avatars/avatar8.jpg",
-// 		duration: 30,
-// 	},
-// 	{
-// 		name: "Olivia Brown",
-// 		time: "10:30 AM",
-// 		day: "Tuesday 27",
-// 		treatment: "Acne Treatment",
-// 		type: "red",
-// 		avatar: "/avatars/avatar9.jpg",
-// 		duration: 60,
-// 	},
-// 	{
-// 		name: "Noah Davis",
-// 		time: "11:15 AM",
-// 		day: "Wednesday 28",
-// 		treatment: "Body Contouring",
-// 		type: "green",
-// 		avatar: "/avatars/avatar10.jpg",
-// 		duration: 75,
-// 	},
-// 	{
-// 		name: "Ava Garcia",
-// 		time: "12:00 PM",
-// 		day: "Thursday 29",
-// 		treatment: "Scar Revision",
-// 		type: "red",
-// 		avatar: "/avatars/avatar11.jpg",
-// 		duration: 45,
-// 	},
-// 	{
-// 		name: "William Anderson",
-// 		time: "2:00 PM",
-// 		day: "Friday 30",
-// 		treatment: "Chemical Peel",
-// 		type: "green",
-// 		avatar: "/avatars/avatar12.jpg",
-// 		duration: 15,
-// 	},
-
-// 	// Week 3: Monday 2 – Friday 6 (June)
-// 	{
-// 		name: "James Thomas",
-// 		time: "9:00 AM",
-// 		day: "Monday 2",
-// 		treatment: "Botox",
-// 		type: "red",
-// 		avatar: "/avatars/avatar13.jpg",
-// 		duration: 60,
-// 	},
-// 	{
-// 		name: "Sophia Martinez",
-// 		time: "9:00 AM",
-// 		day: "Monday 2",
-// 		treatment: "Consultation",
-// 		type: "green",
-// 		avatar: "/avatars/avatar14.jpg",
-// 		duration: 30,
-// 	},
-// 	{
-// 		name: "Benjamin Moore",
-// 		time: "1:45 PM",
-// 		day: "Wednesday 4",
-// 		treatment: "Hair Removal",
-// 		type: "green",
-// 		avatar: "/avatars/avatar15.jpg",
-// 		duration: 15,
-// 	},
-// 	{
-// 		name: "Mia Taylor",
-// 		time: "2:15 PM",
-// 		day: "Wednesday 4",
-// 		treatment: "Anti-aging",
-// 		type: "red",
-// 		avatar: "/avatars/avatar16.jpg",
-// 		duration: 60,
-// 	},
-// 	{
-// 		name: "Ethan Clark",
-// 		time: "3:00 PM",
-// 		day: "Friday 6",
-// 		treatment: "Fillers",
-// 		type: "red",
-// 		avatar: "/avatars/avatar17.jpg",
-// 		duration: 30,
-// 	},
-// ];
-interface ScheduleItem {
-	id: string;
-	customer: {
-		id: string;
-		name: string;
-		avatar: string;
-		phone: string;
-		note: string;
-		address: string;
-	};
-	service: string;
-	date: string;
-	time: string;
-	duration: string;
-	status: number;
-}
-
-interface ScheduleProps {
-	schedule: ScheduleItem[];
-}
 
 const Schedule = () => {
 	const { id } = useParams<{ id: string }>();
@@ -424,3 +244,184 @@ const Schedule = () => {
 };
 
 export default Schedule;
+
+// const allAppointments = [
+// 	// Week 1: Monday 19 – Friday 23
+// 	{
+// 		name: "Sarah Miller",
+// 		time: "9:00 AM",
+// 		day: "Monday 19",
+// 		treatment: "Facial Rejuvenation",
+// 		type: "red",
+// 		avatar: "/avatars/avatar1.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Grace Parker",
+// 		time: "9:30 AM",
+// 		day: "Tuesday 20",
+// 		treatment: "Scar Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar2.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Emma Wilson",
+// 		time: "11:30 AM",
+// 		day: "Tuesday 20",
+// 		treatment: "Chemical Peel",
+// 		type: "red",
+// 		avatar: "/avatars/avatar3.jpg",
+// 		duration: 90,
+// 	},
+// 	{
+// 		name: "Daniel Evans",
+// 		time: "11:30 AM",
+// 		day: "Tuesday 20",
+// 		treatment: "Tattoo Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar4.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Julia Watson",
+// 		time: "3:00 PM",
+// 		day: "Thursday 22",
+// 		treatment: "Botox",
+// 		type: "red",
+// 		avatar: "/avatars/avatar5.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Megan Roberts",
+// 		time: "1:15 PM",
+// 		day: "Friday 23",
+// 		treatment: "Laser Hair Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar6.jpg",
+// 		duration: 45,
+// 	},
+// 	{
+// 		name: "Henry Turner",
+// 		time: "10:45 AM",
+// 		day: "Monday 19",
+// 		treatment: "Microdermabrasion",
+// 		type: "green",
+// 		avatar: "/avatars/avatar7.jpg",
+// 		duration: 30,
+// 	},
+
+// 	// Week 2: Monday 26 – Friday 30
+// 	{
+// 		name: "Liam Johnson",
+// 		time: "9:00 AM",
+// 		day: "Monday 26",
+// 		treatment: "Skin Check",
+// 		type: "green",
+// 		avatar: "/avatars/avatar8.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Olivia Brown",
+// 		time: "10:30 AM",
+// 		day: "Tuesday 27",
+// 		treatment: "Acne Treatment",
+// 		type: "red",
+// 		avatar: "/avatars/avatar9.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Noah Davis",
+// 		time: "11:15 AM",
+// 		day: "Wednesday 28",
+// 		treatment: "Body Contouring",
+// 		type: "green",
+// 		avatar: "/avatars/avatar10.jpg",
+// 		duration: 75,
+// 	},
+// 	{
+// 		name: "Ava Garcia",
+// 		time: "12:00 PM",
+// 		day: "Thursday 29",
+// 		treatment: "Scar Revision",
+// 		type: "red",
+// 		avatar: "/avatars/avatar11.jpg",
+// 		duration: 45,
+// 	},
+// 	{
+// 		name: "William Anderson",
+// 		time: "2:00 PM",
+// 		day: "Friday 30",
+// 		treatment: "Chemical Peel",
+// 		type: "green",
+// 		avatar: "/avatars/avatar12.jpg",
+// 		duration: 15,
+// 	},
+
+// 	// Week 3: Monday 2 – Friday 6 (June)
+// 	{
+// 		name: "James Thomas",
+// 		time: "9:00 AM",
+// 		day: "Monday 2",
+// 		treatment: "Botox",
+// 		type: "red",
+// 		avatar: "/avatars/avatar13.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Sophia Martinez",
+// 		time: "9:00 AM",
+// 		day: "Monday 2",
+// 		treatment: "Consultation",
+// 		type: "green",
+// 		avatar: "/avatars/avatar14.jpg",
+// 		duration: 30,
+// 	},
+// 	{
+// 		name: "Benjamin Moore",
+// 		time: "1:45 PM",
+// 		day: "Wednesday 4",
+// 		treatment: "Hair Removal",
+// 		type: "green",
+// 		avatar: "/avatars/avatar15.jpg",
+// 		duration: 15,
+// 	},
+// 	{
+// 		name: "Mia Taylor",
+// 		time: "2:15 PM",
+// 		day: "Wednesday 4",
+// 		treatment: "Anti-aging",
+// 		type: "red",
+// 		avatar: "/avatars/avatar16.jpg",
+// 		duration: 60,
+// 	},
+// 	{
+// 		name: "Ethan Clark",
+// 		time: "3:00 PM",
+// 		day: "Friday 6",
+// 		treatment: "Fillers",
+// 		type: "red",
+// 		avatar: "/avatars/avatar17.jpg",
+// 		duration: 30,
+// 	},
+// ];
+// interface ScheduleItem {
+// 	id: string;
+// 	customer: {
+// 		id: string;
+// 		name: string;
+// 		avatar: string;
+// 		phone: string;
+// 		note: string;
+// 		address: string;
+// 	};
+// 	service: string;
+// 	date: string;
+// 	time: string;
+// 	duration: string;
+// 	status: number;
+// }
+
+// interface ScheduleProps {
+// 	schedule: ScheduleItem[];
+// }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
 import {
@@ -114,7 +114,7 @@ const HomePage = () => {
 				<header className="relative z-20 bg-transparent w-full">
 					<div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
 						{/* Logo */}
-						<div className="flex items-center gap-1 text-white font-semibold tracking-widest text-sm md:text-sm font-light leading-snug">
+						<div className="flex items-center gap-1 text-white font-semibold tracking-widest text-sm md:text-sm leading-snug">
 							<h1 style={{ fontFamily: "'Allura', cursive" }}>FLAW</h1>
 							{/* <img src="/public/logo-flawless.png" alt="logo" className="w-7 h-7" /> */}
 							<h1 style={{ fontFamily: "'Allura', cursive" }}>LESS</h1>

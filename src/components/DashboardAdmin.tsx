@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTotalRevenue } from "../redux/slices/revenueSlice";
 import { fetchTotalBooking } from "../redux/slices/bookingSlice";

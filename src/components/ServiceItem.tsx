@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 interface ServiceItemProps {
     idSer: string,
 	nameSer: string;
